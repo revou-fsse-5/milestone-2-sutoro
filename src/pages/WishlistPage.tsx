@@ -1,7 +1,7 @@
 // src/pages/WishlistPage.tsx
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar'; 
-import ProductList from '../components/ProductList'; 
+import WishlistView from '../components/WishlistView'; 
 
 interface Product {
   id: number;
@@ -24,29 +24,15 @@ const WishlistPage: React.FC = () => {
     fetchWishlist();
   }, []);
 
-  const handleRemoveFromWishlist = (productId: number) => {
-    // Remove item from wishlist
-    const updatedWishlist = wishlist.filter((product) => product.id !== productId);
-    setWishlist(updatedWishlist);
-    localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
-  };
-
   return (
-    <div className="container mx-auto py-8">
+    <div className="container mx-auto py-px">
       <Navbar /> {/* Add Navbar component */}
-      <h1 className="text-3xl font-bold text-center mb-8">Your Wishlist</h1>
+      <h1 className="text-3xl font-bold text-center mb-px">Your Wishlist</h1>
       {wishlist.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid">
           {wishlist.map((product) => (
-            <div key={product.id} className="relative p-4 border rounded-lg shadow-md">
-              <button
-                onClick={() => handleRemoveFromWishlist(product.id)}
-                className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full hover:bg-red-700 transition"
-                aria-label="Remove from Wishlist"
-              >
-                ×
-              </button>
-              <ProductList products={[product]} /> {/* Display each wishlist item */}
+            <div key={product.id} className="relative p-px border rounded-lg shadow-md">
+              <WishlistView products={[product]} /> {/* Display each wishlist item */}
             </div>
           ))}
         </div>

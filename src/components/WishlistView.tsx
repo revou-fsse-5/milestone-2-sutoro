@@ -1,5 +1,5 @@
 // src/components/WishlistView.tsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 interface Product {
   id: number;
@@ -8,43 +8,41 @@ interface Product {
   images: string[];
 }
 
-const WishlistView: React.FC = () => {
-  const [wishlistItems, setWishlistItems] = useState<Product[]>([]);
+interface WishlistViewProps {
+  products: Product[];
+}
 
-  // Load wishlist items from localStorage
-  useEffect(() => {
-    const storedWishlist = localStorage.getItem('wishlist');
-    if (storedWishlist) {
-      setWishlistItems(JSON.parse(storedWishlist));
-    }
-  }, []);
-
-  // Remove item from wishlist
+const WishlistView: React.FC<WishlistViewProps> = ({ products }) => {
+  // Function to remove an item from the wishlist
   const handleRemoveFromWishlist = (id: number) => {
-    const updatedWishlist = wishlistItems.filter(item => item.id !== id);
-    setWishlistItems(updatedWishlist);
+    const updatedWishlist = products.filter((item) => item.id !== id);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+    window.location.reload(); // Reload to update the wishlist state
   };
 
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold text-center mb-8">Wishlist</h1>
-      {wishlistItems.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {wishlistItems.map((item) => (
-            <div key={item.id} className="bg-white shadow-lg rounded-lg p-4">
+    <div className="w-full py-2">     
+      {products.length > 0 ? (
+        <div className="space-y-4">
+          {products.map((item) => (
+            <div
+              key={item.id}
+              className="flex items-center justify-between bg-white shadow-lg rounded-lg p-4"
+            >
               <img
                 src={item.images[0]}
                 alt={item.title}
-                className="w-full h-40 object-cover rounded mb-4"
+                className="w-20 h-20 object-cover rounded mr-4"
               />
-              <h2 className="text-lg font-semibold">{item.title}</h2>
-              <p className="text-gray-600">${item.price.toFixed(2)}</p>
+              <div className="flex-1 mr-4">
+                <h2 className="text-lg font-semibold">{item.title}</h2>
+                <p className="text-gray-600">${item.price.toFixed(2)}</p>
+              </div>
               <button
                 onClick={() => handleRemoveFromWishlist(item.id)}
-                className="mt-4 text-red-500 hover:text-red-700"
+                className="text-red-500 hover:text-red-700 transition"
               >
-                Remove from Wishlist
+                Remove
               </button>
             </div>
           ))}
