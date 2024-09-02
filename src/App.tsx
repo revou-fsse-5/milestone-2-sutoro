@@ -2,7 +2,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
-import CategoryPage from './pages/CategoryPage';
 import ProductPage from './pages/ProductPage';
 import RegisterPage from './pages/RegisterPage';
 import Login from './components/Login';
@@ -15,7 +14,6 @@ function App() {
       <div className="bg-gray-100 min-h-screen">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/categories" element={<CategoryPage />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<RegisterPage />} />

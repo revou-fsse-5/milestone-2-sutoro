@@ -12,14 +12,6 @@ const Navbar: React.FC = () => {
         <ul className="flex space-x-6">
           <li>
             <Link
-              to="/categories"
-              className="text-white hover:text-gray-200 transition"
-            >
-              Categories
-            </Link>
-          </li>
-          <li>
-            <Link
               to="/wishlist"
               className="text-white hover:text-gray-200 transition"
             >

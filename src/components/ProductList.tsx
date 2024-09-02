@@ -1,17 +1,19 @@
 // src/components/ProductList.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-// Importing icons
 import HeartIcon from '../assets/icons/heart.png';
 import CartIcon from '../assets/icons/cart.png';
 
-// Define Product interface (ensure it matches with other pages)
+// Define Product interface
 interface Product {
   id: number;
   title: string;
   price: number;
   images: string[];
+  category: {
+    id: number;
+    name: string;
+  };
 }
 
 // Define the props interface for ProductList
@@ -20,7 +22,6 @@ interface ProductListProps {
 }
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
-  // Function to add a product to the wishlist
   const addToWishlist = (product: Product) => {
     const storedWishlist = localStorage.getItem('wishlist');
     const wishlist = storedWishlist ? JSON.parse(storedWishlist) : [];
@@ -33,7 +34,6 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
     }
   };
 
-  // Function to add a product to the cart
   const addToCart = (product: Product) => {
     const storedCart = localStorage.getItem('cart');
     const cart = storedCart ? JSON.parse(storedCart) : [];
